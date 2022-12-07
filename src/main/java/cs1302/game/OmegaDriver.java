@@ -1,4 +1,4 @@
-package cs1302.omega;
+package cs1302.game;
 
 import javafx.application.Application;
 
