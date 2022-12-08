@@ -1,10 +1,12 @@
 package cs1302.game;
+
 import java.util.Random;
 import java.util.logging.Level;
 
+import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Region;
-import javafx.scene.shape.Rectangle;
+
 
 /**
  * A JavaFX take on the cult classic "Space Invaders". Use Enter to start and left/right keys
@@ -15,21 +17,24 @@ public class SpaceInvaders extends Game {
 
     private PlayerShip player;
     private Alien alien;
+    private RocketPlayer shot;
 
     public SpaceInvaders(int width, int height) {
         super(width, height, 60);
         setLogLevel(Level.INFO);
         this.alien = new Alien(this, 1);
         this.player = new PlayerShip(this);
+        this.shot = new RocketPlayer(this);
     } // SpaceInvaders
 
     /** {@inheritDoc} */
     @Override
     protected void init() {
         //setup subgraph
-        getChildren().addAll(player, alien);
+        getChildren().addAll(player, alien, shot);
 
         //setup player
+
         player.setDefault();
 
         alien.setX(100.0);
@@ -46,9 +51,15 @@ public class SpaceInvaders extends Game {
         // maybe have methods in each enemy class that get checked here so like isAlived()
         // and amountOfDamage()?
         player.update();
-
         alien.update();
-        //isKeyPressed -> shoot rocket TBA
+        shot.setAlienBounds(alien.getBoundsInParent());
+
+        this.isKeyPressed(KeyCode.SPACE, () -> {
+            shot.setLocation(player.getX(), player.getY());
+            shot.setGo(true);
+        });
+        shot.update();
 
     } // update
-} // SpaceInvaders
+
+}  // SpaceInvaders

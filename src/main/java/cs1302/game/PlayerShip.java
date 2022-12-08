@@ -41,11 +41,6 @@ public class PlayerShip extends ImageView {
             } // if
         });
 
-        game.isKeyPressed(KeyCode.SPACE, () -> {
-            RocketPlayer laser = new RocketPlayer(game, this.getX(), this.getY());
-            laser.update();
-        });
-
     } // update
 
     /**

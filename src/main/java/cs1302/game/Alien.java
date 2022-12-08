@@ -1,3 +1,4 @@
+
 package cs1302.game;
 
 import javafx.geometry.Bounds;
@@ -69,6 +70,9 @@ public class Alien extends ImageView {
             setY(getY() + dy);
         } // if
         setX(getX() + dx);
-
     } // update
+
+    public void explode() {
+        this.setVisible(false);
+    } // explode
 } // Alien
