@@ -19,6 +19,8 @@ Markdown is transformed into nice looking HTML.
     you have won. But, if you lose all three of your lives it's Game Over! Once you reach the end screen, press
     enter to restart the game.
 
+    https://github.com/mykalbayouk/cs1302-omega
+
 ## Part 2: New
 
 > What is something new and/or exciting that you learned from working
