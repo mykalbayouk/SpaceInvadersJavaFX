@@ -1,22 +1,19 @@
 package cs1302.game;
 
-import javafx.util.Duration;
 import javafx.geometry.Bounds;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Region;
 import javafx.scene.image.Image;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 
 /**
  * This is the class for the different aliens enemies.
  */
 public class Alien extends ImageView {
 
+    /** Instance variables to be used in class. */
     private Game game;
-    private int value;
     private boolean alive;
     private double dx;
     private double dy;
@@ -32,6 +29,8 @@ public class Alien extends ImageView {
      * Construct an {@code Alien} object.
      * @param game parent game
      * @param type of alien (1 for basic, 2 for medium level, 3 for highest)
+     * @param xLoc of type double
+     * @param yLoc of type double
      */
     public Alien(Game game, int type, double xLoc, double yLoc) {
         super();
@@ -48,40 +47,28 @@ public class Alien extends ImageView {
             this.setFitWidth(50);
             this.setFitHeight(50);
         } // if
-        this.setValue(type);
         this.game = game;
 
         this.setX(xLoc);
         this.setY(yLoc);
 
         this.count = -1;
-        this.value = 0;
         this.alive = true;
         this.dx = 1;
         this.dy = 5;
     } // Alien
 
-    private void setValue(int type) {
-        if (type == 1) {
-            value = 100;
-        } else if (type == 2) {
-            value = 250;
-        } else if (type == 3) {
-            value = 500;
-        } else {
-            throw new IllegalArgumentException("Not valid type");
-        } // if
-    } //set Value
-
-    public void update() {
-
-    } // update
-
-
+    /**
+     * Returns whether the alien is alive.
+     * @return true if alive, false if not
+     */
     public boolean isAlive() {
         return alive;
     } // isAlive
 
+    /**
+     * Changes the sprite to kaboom and sets alive to false.
+     */
     public void explode() {
         this.setImage(kaboom);
         alive = false;

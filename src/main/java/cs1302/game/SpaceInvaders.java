@@ -15,6 +15,7 @@ import javafx.scene.image.ImageView;
  */
 public class SpaceInvaders extends Game {
 
+    /** Instance variabls for each individual sprite.*/
     private PlayerShip player;
     private BoxAlien alienBox;
     private RocketPlayer shot;
@@ -25,9 +26,15 @@ public class SpaceInvaders extends Game {
     private Defense base4;
     private LabelItems lives;
 
+    /** Win/Lost images. */
     private ImageView endWinImage;
     private ImageView endLoseImage;
 
+    /**
+     * Constructor to create a {@code SpaceInvaders} object.
+     * @param width of type int
+     * @param height of type int
+     */
     public SpaceInvaders(int width, int height) {
         super(width, height, 60);
         setLogLevel(Level.INFO);
@@ -55,10 +62,12 @@ public class SpaceInvaders extends Game {
     /** {@inheritDoc} */
     @Override
     protected void init() {
-        //setup subgraph
+        //setting up subgraph
         getChildren().addAll(player, shot, aliShot,
-        base1, base2, base3, base4, alienBox,
-        lives);
+            base1, base2, base3, base4, alienBox,
+            lives);
+        //setting each sprite to its default location and state
+        //also sending objects to sprites for interaction.
         alienBox.setShot(shot);
         alienBox.setAlienShot(aliShot);
         player.setDefault();
@@ -85,42 +94,45 @@ public class SpaceInvaders extends Game {
     /** {@inheritDoc} */
     @Override
     protected void update() {
-
+        // if player loses all 3 lives or aliens reach the bottom
+        // the player loses
         if (player.gameOver() || alienBox.reachEnd()) {
             this.showEndLose();
-            if(this.isKeyPressed(KeyCode.ENTER)) {
+            if (this.isKeyPressed(KeyCode.ENTER)) {
                 this.reset();
             } // if
         } else if (alienBox.getAlienCount() == 0) {
             this.showEndWin();
-            if(this.isKeyPressed(KeyCode.ENTER)) {
+            if (this.isKeyPressed(KeyCode.ENTER)) {
                 this.reset();
             } // if
         } else {
 
-
-        player.update();
-        alienBox.update();
-        this.isKeyPressed(KeyCode.SPACE, () -> {
-            shot.setLocation(player.getX(), player.getY());
-            shot.setGo(true);
-        });
-        shot.update();
-        base1.update();
-        base2.update();
-        base3.update();
-        base4.update();
-        lives.update();
+            player.update();
+            alienBox.update();
+            this.isKeyPressed(KeyCode.SPACE, () -> {
+                shot.setLocation(player.getX(), player.getY());
+                shot.setGo(true);
+            });
+            shot.update();
+            base1.update();
+            base2.update();
+            base3.update();
+            base4.update();
+            lives.update();
 
         } // if
     } // update
 
+    /**
+     * Removes all children except for the images of win/lose from subgraph.
+     */
     public void removeChildren() {
         getChildren().removeAll(player, alienBox, shot, aliShot, base1, base2, base3, base4, lives);
     } // removeChildren()
 
     /**
-     * Method that removes old objects from scene and creates new objects for each asset.
+     * Method that creates new objects for each asset and reruns init method.
      */
     public void reset() {
         this.player = new PlayerShip(this);
@@ -135,11 +147,17 @@ public class SpaceInvaders extends Game {
         this.init();
     } // reset
 
+    /**
+     * Shows the end scren when called and removes children from subgraph.
+     */
     public void showEndLose() {
         this.removeChildren();
         endLoseImage.setVisible(true);
     } // showEndLose
 
+    /**
+     * Shows the end scren when called and removes children from subgraph.
+     */
     public void showEndWin() {
         if (this.getChildren() != null) {
             this.removeChildren();

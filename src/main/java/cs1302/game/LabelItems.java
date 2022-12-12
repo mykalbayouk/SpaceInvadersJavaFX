@@ -3,25 +3,26 @@ package cs1302.game;
 import javafx.scene.layout.HBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 
-
+/**
+ * Shows the amount of lives the player has left by using each ship as one life.
+ */
 public class LabelItems extends HBox {
 
-//    private PlayerShip player;
-
+    /** Lives large picture and 3 mini pictures being used as instance variables. */
     private ImageView livesPic;
     private ImageView life1;
     private ImageView life2;
     private ImageView life3;
 
-    private int lifeCount;
     private PlayerShip player;
 
-      public LabelItems() {
+     /**
+      * Creates a {@code LabelItems} object.
+      */
+    public LabelItems() {
         super(20.0);
-        this.lifeCount = 3;
         this.player = null;
 
         livesPic = new ImageView("file:resources/sprites/Lives.PNG");
@@ -41,7 +42,9 @@ public class LabelItems extends HBox {
         this.getChildren().addAll(livesPic, life1, life2, life3);
     } // LabelItems
 
-
+    /**
+     * Checks to see current amount of lives player has and updates accordingly.
+     */
     public void update() {
         if (player.getLife() == 2) {
             life3.setVisible(false);
@@ -52,11 +55,19 @@ public class LabelItems extends HBox {
         } // if
     } // update
 
+    /**
+     * Sets the PlayerShip object into a variable that can be used in the {@code LabelItems},
+     * class.
+     * @param p of type PlayerShip
+     */
     public void setPlayer(PlayerShip p) {
         player = p;
     } // setPlayer
 
 
+    /**
+     * Sets the Lives tab to a default location.
+     */
     public void setDefault() {
         this.setTranslateX(400);
         this.setTranslateY(10.0);

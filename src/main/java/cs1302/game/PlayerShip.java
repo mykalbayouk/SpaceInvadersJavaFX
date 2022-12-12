@@ -6,10 +6,12 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Region;
 
 /**
- * This is the class for the main player's ship. TBA..
+ * This is the class for the main player's ship. Use left and right arrow keys
+ * in order to move the player on the screen. SpaceBar to shoot the laser.
  */
 public class PlayerShip extends ImageView {
 
+    /** Instance variables to be used by the PlayerShip class. */
     private Game game;
     private RocketAlien alienShot;
     private boolean gameOver;
@@ -42,7 +44,8 @@ public class PlayerShip extends ImageView {
         Bounds gameBounds = game.getGameBounds();
         Bounds alienLazer = alienShot.getBoundsInParent();
 
-        if(this.intersects(alienLazer) && life > 0) {
+        // if laser intersects playership, decrease life and reset playership
+        if (this.intersects(alienLazer) && life > 0) {
             this.setLife(this.getLife() - 1);
             this.setDefault();
             alienShot.setLocation(-1000, -1000);
@@ -68,7 +71,7 @@ public class PlayerShip extends ImageView {
 
     /**
      * Sets the player life to a new updated value.
-     * @param life of type int.
+     * @param li of type int.
      */
     public void setLife(int li) {
         life = li;
@@ -78,7 +81,7 @@ public class PlayerShip extends ImageView {
      * Returns the amount of lives the player has.
      * @return life of type int
      */
-    public int getLife(){
+    public int getLife() {
         return life;
     } // getLife
 
@@ -106,4 +109,5 @@ public class PlayerShip extends ImageView {
     public void setAlienShot(RocketAlien sho) {
         alienShot = sho;
     } // getAlienShot
+
 } // PlayerShip

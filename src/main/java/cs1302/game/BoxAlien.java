@@ -1,6 +1,6 @@
 package cs1302.game;
-import java.util.Random;
 
+import java.util.Random;
 import javafx.geometry.Bounds;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
@@ -12,20 +12,26 @@ import javafx.scene.Group;
  */
 public class BoxAlien extends Group {
 
+    /** Instance variables used by class. */
     private Game game;
     protected Alien[][] alien = new Alien[5][11];
-    private double dy;
+    private double dy; // movement modifers
     private double dx;
     private RocketPlayer shot;
-    private int count;
+    private int count; // animation modifer
     private RocketAlien alienShot;
     private int delay;
-    private boolean canShoot;
+    private boolean canShoot; // if alien is able to shoot
     private Alien al;
 
-    private int alienCount;
+    private int alienCount; // amount of aliens alive
     private boolean end;
 
+    /**
+     * Creates a {@code BoxAlien} object. Creates a 5 x 11 grid of each
+     * individual alien to be seen and moved on the board
+     * @param game of type Game.
+     */
     public BoxAlien(Game game) {
         this.game = game;
         this.dy = 1;
@@ -39,11 +45,12 @@ public class BoxAlien extends Group {
         this.alienCount = 55;
         this.end = false;
 
+        //creates a 5 x 11 grid of each individual alien to be seen and moved on the board
         double adj = 0;
         int c = 0;
         double x = 10.0;
         double y = 10.0;
-        for(int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 11; j++) {
                 if (i == 0) {
                     c = 3;
@@ -62,6 +69,14 @@ public class BoxAlien extends Group {
 
     } // Box Alien
 
+    /**
+     * Method used to update the alienBox and move it
+     * along the screen as one whole unit.
+     * Will check to see if alien box has reached
+     * a certain Y distance and if so will end game. Also
+     * sets up the ability to have a random
+     * alien shoot along the board every 5 seconds (300 frames).
+     */
     public void update() {
         Bounds alienBoxBounds = getBoundsInParent();
         Bounds gameBounds = game.getGameBounds();
@@ -72,7 +87,7 @@ public class BoxAlien extends Group {
             end = true;
             return;
         } // if
-
+        // Every 300 frames check to see if alien is alive
         if (delay % 300 == 0 && delay > 0) {
             if (alien[xCord][yCord].isAlive()) {
                 alienShot.setLocation(alien[xCord][yCord].getX(), alien[xCord][yCord].getY());
@@ -85,6 +100,7 @@ public class BoxAlien extends Group {
             delay++;
         } // if
 
+        // if player has fired a shot run through each alien to see if they have been hit.
         if (shot.getFired() && count == -1) {
             for (int i = 0; i < 5; i++) {
                 for (int j = 0; j < 11; j++) {
@@ -121,32 +137,64 @@ public class BoxAlien extends Group {
         setTranslateX(getTranslateX() + dx);
     } // update
 
+    /**
+     * Returns the status of whether the {@code BoxAlien} has
+     * reached the end of the path (got to close to the player).
+     * @return end of type boolean
+     */
     public boolean reachEnd() {
         return end;
     } // reachEnd
 
+    /**
+     * Returns the count of aliens alive.
+     * @return alienCount of type int
+     */
     public int getAlienCount() {
         return alienCount;
     } // getAlienCount
 
+    /**
+     * Set the alien acquired in one of the update methods to a class level
+     * variable {@code al}.
+     * @param a of type Alien
+     */
     public void setAlien(Alien a) {
         al = a;
     } // setAlien
 
+    /**
+     * Sets the alienShot variable equal to the {@code RocketAlien}
+     * object used in the game.
+     * @param aliSh of type RocketAlien
+     */
     public void setAlienShot(RocketAlien aliSh) {
         alienShot = aliSh;
     } // setAlienShot
 
+    /**
+     * Sets the shot variable equal to the {@code RocketPlayer}
+     * object used in the game.
+     * @param sho of type RocketPlayer
+     */
     public void setShot(RocketPlayer sho) {
         shot = sho;
     } // setShot
 
+    /**
+     * Generates a random alien X dimension [1, 5].
+     * @return x cordinate of type int
+     */
     public int getRXCord() {
         Random randx = new Random();
 
         return randx.nextInt((4 - 1) + 1) + 1;
     } // genCord
 
+    /**
+     * Generates a random alien Y dimension [1, 11].
+     * @return y cordinate of type int
+     */
     public int getRYCord() {
         Random randy = new Random();
 
