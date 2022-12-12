@@ -97,8 +97,8 @@ public class PlayerShip extends ImageView {
      * Sets default location of player sprite.
      */
     public void setDefault() {
-        this.setX(350.0);
-        this.setY(650.0);
+        this.setX(330.0);
+        this.setY(670.0);
     } // setDefault
 
     /**

@@ -32,9 +32,9 @@ public class Defense extends Group {
         // modifer to adjust distance each box is from each other
         int modify = 100;
         if (type == 2) {
-            modify = 230;
+            modify = 250;
         } else if (type == 3) {
-            modify = 410;
+            modify = 400;
         } else if (type == 4) {
             modify = 550;
         } // if
