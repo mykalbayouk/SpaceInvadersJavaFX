@@ -1,11 +1,14 @@
-
 package cs1302.game;
 
+import javafx.util.Duration;
 import javafx.geometry.Bounds;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Region;
 import javafx.scene.image.Image;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 
 /**
  * This is the class for the different aliens enemies.
@@ -17,30 +20,41 @@ public class Alien extends ImageView {
     private boolean alive;
     private double dx;
     private double dy;
+    private int count;
 
     private final Image alien1 = new Image("file:resources/sprites/alien_1.png");
     private final Image alien2 = new Image("file:resources/sprites/alien_2.png");
     private final Image alien3 = new Image("file:resources/sprites/alien_3.png");
+
+    private final Image kaboom = new Image("file:resources/sprites/alien_Kaboom.png");
 
     /**
      * Construct an {@code Alien} object.
      * @param game parent game
      * @param type of alien (1 for basic, 2 for medium level, 3 for highest)
      */
-    public Alien(Game game, int type) {
+    public Alien(Game game, int type, double xLoc, double yLoc) {
         super();
         if (type == 1) {
             this.setImage(alien1);
+            this.setFitWidth(80);
+            this.setFitHeight(80);
         } else if (type == 2) {
             this.setImage(alien2);
+            this.setFitWidth(40);
+            this.setFitHeight(40);
         } else if (type == 3) {
             this.setImage(alien3);
+            this.setFitWidth(50);
+            this.setFitHeight(50);
         } // if
         this.setValue(type);
-        this.setFitWidth(60);
-        this.setFitHeight(60);
         this.game = game;
 
+        this.setX(xLoc);
+        this.setY(yLoc);
+
+        this.count = -1;
         this.value = 0;
         this.alive = true;
         this.dx = 1;
@@ -60,19 +74,16 @@ public class Alien extends ImageView {
     } //set Value
 
     public void update() {
-        Bounds alienBounds = getBoundsInParent();
-        Bounds gameBounds = game.getGameBounds();
-        if (alienBounds.getMaxX() > (gameBounds.getMaxX() - 10)) {
-            dx *= -1.0;
-            setY(getY() + dy);
-        } else if ((alienBounds.getMinX() - 10) < gameBounds.getMinX()) {
-            dx *= -1.0;
-            setY(getY() + dy);
-        } // if
-        setX(getX() + dx);
+
     } // update
 
+
+    public boolean isAlive() {
+        return alive;
+    } // isAlive
+
     public void explode() {
-        this.setVisible(false);
+        this.setImage(kaboom);
+        alive = false;
     } // explode
 } // Alien

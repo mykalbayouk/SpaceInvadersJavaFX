@@ -165,4 +165,7 @@ public abstract class Game extends Region {
         return bounds;
     } // getGameBounds
 
+    public final Timeline getLoop() {
+        return loop;
+    } // getLoop
 } // Game

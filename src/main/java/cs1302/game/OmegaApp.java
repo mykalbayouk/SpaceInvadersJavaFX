@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import javafx.animation.Timeline;
 /**
  * REPLACE WITH NON-SHOUTING DESCRIPTION OF YOUR APP.
  */
@@ -25,8 +26,7 @@ public class OmegaApp extends Application {
     @Override
     public void start(Stage stage) {
 
-        SpaceInvaders game = new SpaceInvaders(500, 500);
-
+        SpaceInvaders game = new SpaceInvaders(750, 750);
         // setup scene
         VBox root = new VBox(game);
         Scene scene = new Scene(root);
@@ -41,7 +41,6 @@ public class OmegaApp extends Application {
 
         // play the game
         game.play();
-
     } // start
 
 } // OmegaApp

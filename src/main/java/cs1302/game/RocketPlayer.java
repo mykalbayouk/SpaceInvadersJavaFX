@@ -1,9 +1,9 @@
-
-
 package cs1302.game;
 
-import java.lang.InterruptedException;
-import java.lang.Thread;
+import javafx.util.Duration;
+import javafx.geometry.Bounds;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 
 import javafx.application.Platform;
 import javafx.geometry.Bounds;
@@ -11,6 +11,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Region;
 import javafx.scene.image.Image;
+
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 /**
  * This is the class for the Player rockets shot by either the player or enemy.
@@ -20,9 +23,13 @@ public class RocketPlayer extends ImageView {
     private Game game;
     private double dy;
     private boolean go;
+    private int count;
+    private boolean fired;
 
     private Bounds alienBounds;
     private Image DEFAULT_IMAGE = new Image("file:resources/sprites/player_laser.png");
+
+
     /**
      * Constructs an {@code RocketPlayer} object.
      * @param game Game type of game
@@ -38,8 +45,9 @@ public class RocketPlayer extends ImageView {
         this.game = game;
         this.setVisible(false);
         this.dy = 15.0;
-        this.alienBounds = null;
+        this.fired = false;
         go = false;
+        count = 0;
     } // Rocket
 
     public void setLocation(double x, double y) {
@@ -52,28 +60,36 @@ public class RocketPlayer extends ImageView {
     public void update() {
         if (go) {
         Bounds rocketBounds = getBoundsInParent();
-        Bounds alienBounds = this.getAlienBounds();
         Bounds gameBounds = game.getGameBounds();
-        Runnable r = () -> emptyExplode();
-        if (this.intersects(alienBounds)) {
-            System.out.println("Hit!");
+
+        if ((rocketBounds.getMinY() - 50.0) < gameBounds.getMinY() && count == 0) {
+            this.emptyExplode();
+            count = 1;
+            return;
+        }  else if (count < 5 && count > 0) {
+            count++;
+            return;
+        } else if (count == 5) {
             this.hide();
+            this.setImage(DEFAULT_IMAGE);
+            this.setFitWidth(30.0);
+            this.setFitHeight(10.0);
+            count = 0;
+            this.setFired(false);
             return;
-        } else if ((rocketBounds.getMinY() - 50.0) < gameBounds.getMinY()) {
-            this.runNow(r);
-            return;
-        }  // if
+        } // if
         setY(getY() - dy);
+        this.setFired(true);
         } // if
     } // update
 
-    public void setAlienBounds(Bounds alien) {
-        alienBounds = alien;
-    } // setAlienBounds
+    public boolean getFired() {
+        return fired;
+    } // getFried
 
-    public Bounds getAlienBounds() {
-        return alienBounds;
-    } // getAlienBounds
+    public void setFired(boolean set) {
+        fired = set;
+    } // setFired
 
     public void setGo(boolean set) {
         go = set;
@@ -82,38 +98,20 @@ public class RocketPlayer extends ImageView {
     //rocket hits nothing
     public void hide() {
         this.setVisible(false);
-        setX(0.0);
-        setY(0.0);
+        setX(-1000.0);
+        setY(-1000.0);
         go = false;
     } // explode
 
-    /**
-     * Creates a new Thread.
-     * @param target of type Runnable.
-     */
-    public void runNow(Runnable target) {
-        Thread t = new Thread(target);
-        t.setDaemon(true);
-        t.start();
-    } // runNow
-
     public void emptyExplode() {
-        try {
-            Image kaboom = new Image("file:resources/sprites/empty_Kaboom.png");
-            Platform.runLater(() -> this.setVisible(false));
-            this.setImage(kaboom);
-            this.setFitWidth(60.0);
-            this.setFitHeight(60.0);
-            Platform.runLater(() -> this.setVisible(true));
-            Thread.sleep(800);
-            this.hide();
-            this.setImage(DEFAULT_IMAGE);
-            this.setFitWidth(30.0);
-            this.setFitHeight(10.0);
-        } catch (InterruptedException e) {
-            return;
-        } //catch
-
+        Image kaboom = new Image("file:resources/sprites/empty_Kaboom.png");
+        this.setVisible(false);
+        this.setImage(kaboom);
+        this.setFitWidth(60.0);
+        this.setFitHeight(60.0);
+        this.setX(this.getX() - 5.0);
+        this.setY(this.getY() + 5.0);
+        this.setVisible(true);
     } // emptyExplode
 
 } // Rocket
