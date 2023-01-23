@@ -58,6 +58,7 @@ public class Alien extends ImageView {
         this.dy = 5;
     } // Alien
 
+
     /**
      * Returns whether the alien is alive.
      * @return true if alive, false if not
