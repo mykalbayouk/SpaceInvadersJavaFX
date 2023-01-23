@@ -10,9 +10,6 @@
 CSCI 1302 - |title| |version|
 #############################
 
-|approval_notice| |team_size_notice|
-
-|banner|
 
 This document contains the description for the |slug| project assigned to the
 students in the |semester| CSCI 1302 classes at the University of Georgia.
@@ -25,6 +22,8 @@ students in the |semester| CSCI 1302 classes at the University of Georgia.
 
 ----
 
+Basic Description
+*****************
 
 Your goal is to implement, from scratch, a GUI application in Java 17 using JavaFX 17
 that incorporates a preponderance of the topics introduced in this course in a way that
@@ -61,8 +60,6 @@ Here are some of the learning outcomes for this project:
 Appendix
 ********
 
-
-.. #############################################################################
 
 
 .. instructor github profiles
