@@ -3,9 +3,9 @@
 Basic Description
 *****************
 
-The goal of this project is to implement, from scratch, a GUI application in Java 17 using JavaFX 17
-that incorporates a preponderance of the topics introduced in this course in a way that
-demonstrates that you have met the learning outcomes related to those topics.
+The goal of this project is to implement, from scratch, a recreation of "Space Invaders" in Java 17 using JavaFX 17
+that incorporates a preponderance of the topics introduced in my cs1302 course in a way that
+demonstrates that I have met the learning outcomes related to those topics.
 
 
 Learning Outcomes
