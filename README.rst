@@ -3,7 +3,7 @@
 Basic Description
 *****************
 
-The goal of this project is to implement, from scratch, a recreation of "Space Invaders" in Java 17 using JavaFX 17
+The goal of this project was to implement, from scratch, a recreation of "Space Invaders" in Java 17 using JavaFX 17
 that incorporates a preponderance of the topics introduced in my cs1302 course in a way that
 demonstrates that I have met the learning outcomes related to those topics.
 
@@ -52,6 +52,3 @@ Appendix
    System of Georgia.
 
 ----
-
-.. rubric:: **Feature Preparation Timestamps:**
-* Mon Dec  5 15:30:14 EST 2022
